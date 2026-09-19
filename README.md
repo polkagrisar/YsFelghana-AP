@@ -31,6 +31,9 @@ I also contemplated to not even post this apworld, since it is made by Ai, but I
 4. Client with memory integration
 * Everything is done using pymem, there is no .dll or similar hooks.
 
+  - GOAL
+1. The Goal is on defeating Galbalan on Genos Island.
+
 * The game does not actually show any messages and does not change any sprites or anything, all information of what you send or get is in the Client only.
 
 ## Requirements ##

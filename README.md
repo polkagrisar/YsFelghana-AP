@@ -66,6 +66,8 @@ When the apworld is in the custom_worlds folder, The "Ys Felghana Client" will a
 
 ## Known Issues ##
 - The Stone Shoes might not work correctly when auto equipped upon entering a room, if the first surface you touch in that room is ice.
+- XP and Gold gets resent when reconnecting to the Server (unlimited Gold and XP).
+- Some flags might make it so you can't enter buildings in Redmont, progressing the game should fix it (looking into this).
 
 ## Credits
 - Created by polkagrisar

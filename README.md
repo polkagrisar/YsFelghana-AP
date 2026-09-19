@@ -19,9 +19,7 @@ I also contemplated to not even post this apworld, since it is made by Ai, but I
 4. Giving items to people (not receiving items)
 5. Opening Doors
 6. Defeating Bosses
-
-* Look in the Locations.py for an exact list
-
+   
 - Items and Equipment
 1. Swords, Shields, Armor, Bracelets
 2. All accessories and items.

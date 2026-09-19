@@ -48,10 +48,10 @@ I also contemplated to not even post this apworld, since it is made by Ai, but I
 When the apworld is in the custom_worlds folder, The "Ys Felghana Client" will appear in the Archipelago Launcher.
 
 -- How to Use --
-Launch the Game on steam.
-1. Start a New Game, or load a previous save (it does not skip the opening cutscene, but you can prepare a save that already start after it).
-2. Start the 'Ys Felghana Client' in the Archipelago Launcher, input the server:port, slot_name and password (if any).
-   The Client should say: "=== Successfully connected to Archipelago! ===".
+1. Launch the Game on steam.
+2. Start a New Game, or load a previous save (it does not skip the opening cutscene, but you can prepare a save that already start after it).
+3. Start the 'Ys Felghana Client' in the Archipelago Launcher, input the server:port, slot_name and password (if any).
+4. The Client should say: "=== Successfully connected to Archipelago! ===".
 
 * Starting other old saves WILL send out any locations that save has gotten, so don't do that unless you want to mess up the world for everyone, it might also remove items from that save, so do not save over any saves you don't want to mess up *
 
@@ -62,7 +62,7 @@ Launch the Game on steam.
 - Genos Island is accessible when you have defeated 0-12 of all the bosses (that's not on Genos Island).
 
 ## Known Issues ##
-- The Stone Shoes might not work correctly when auto equipped upon entering a room, if the first surface you touch in that room is ice. 
+- The Stone Shoes might not work correctly when auto equipped upon entering a room, if the first surface you touch in that room is ice.
 
 ## Credits
 - Created by polkagrisar

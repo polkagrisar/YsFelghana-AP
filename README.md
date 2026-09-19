@@ -8,24 +8,28 @@ Specifically the archipelago library integration with the client is something I 
 All the memory addresses, flags and things have been manually found in Cheat Engine, no Ai has been used for that (except teaching me the program).
 
 I have learnt a lot about Python, pymem, Cheat Engine and more, so hopefully my next apworld will use much less Ai.
-I have comtemplated not even posting this apworld, since it is made by Ai, but I wanted to share it anyways, especially since I have gotten to enjoy many other peoples apworlds.
+I also contemplated to not even post this apworld, since it is made by Ai, but I wanted to share it anyways, especially since I have gotten to enjoy many other peoples apworlds.
 
 ## Features ##
-- Item and location randomization
+- Item and location randomization 
 1. Shop Items
 2. Chests
 3. Pots
-4. Giving Items to people (not recieving items)
+4. Giving items to people (not receiving items)
 5. Opening Doors
 6. Defeating Bosses
-7. 
+
+* Look in the Locations.py for an exact list
+
 - Progressive Equipment
 Swords, Shields, Armor, Bracelets (Optional)
 - Keyring option
 - Statue and boss requirements
 - Auto-equip options
 - Client with memory integration
-:Everything is done using pymem, there is no .dll or similar hooks.
+* Everything is done using pymem, there is no .dll or similar hooks.
+
+* The game does not actually show any messages and does not change any sprites or anything, all information of what you send or get is in the Client only.
 
 ## Requirements ##
 - Archipelago 0.6.7+
@@ -49,12 +53,11 @@ Launch the Game on steam.
 
 * Starting other old saves WILL send out any locations that save has gotten, so don't do that unless you want to mess up the world for everyone, it might also remove items from that save, so do not save over any saves you don't want to mess up *
 
-
 ## Quirks specific to this randomizer ##
-- When in Redmont some of your Equipment might/will dissapear, this is because of the way the flags in the store works. Just exit the town and they will all come back.
+- When in Redmont some of your Equipment might/will disappear, this is because of the way the flags in the store works. Just exit the town and they will all come back.
 - Abandoned Mine is only open when you have the Nightfire Gem item.
 - Valestein Castle open when you have 0-4 of the Statues.
-- Genos Island is accessible when you have defeated 0-12 of all the bosses (that's not on genos Island).
+- Genos Island is accessible when you have defeated 0-12 of all the bosses (that's not on Genos Island).
 
 ## Known Issues ##
 - The Stone Shoes might not work correctly when auto equipped upon entering a room, if the first surface you touch in that room is ice. 

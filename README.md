@@ -4,14 +4,15 @@ Archipelago randomizer world for *Ys: The Oath in Felghana*.
 
 ## AI USAGE ##
 This randomizer does use vibe coding, mostly by Grok, but also a bit from Gemini.
-Specifically the archipelago library integration with the client is something I personally don't understand that much, and that is all made by the Ai.
+Some things have been integrated from Grok without much editing, so it wouldn't be completely unfair to call it Ai generated.
+Specifically the archipelago library integration with the client is something I personally don't understand that much about, and that is all made by the Ai.
 All the memory addresses, flags and things have been manually found in Cheat Engine, no Ai has been used for that (except teaching me the program).
 
 I have learnt a lot about Python, pymem, Cheat Engine and more, so hopefully my next apworld will use much less Ai.
 I also contemplated to not even post this apworld, since it is made by Ai, but I wanted to share it anyways, especially since I have gotten to enjoy many other peoples apworlds.
 
 ## Features ##
-- Item and location randomization 
+- Location randomization 
 1. Shop Items
 2. Chests
 3. Pots
@@ -21,12 +22,15 @@ I also contemplated to not even post this apworld, since it is made by Ai, but I
 
 * Look in the Locations.py for an exact list
 
-- Progressive Equipment
-Swords, Shields, Armor, Bracelets (Optional)
-- Keyring option
-- Statue and boss requirements
-- Auto-equip options
-- Client with memory integration
+- Items and Equipment
+1. Swords, Shields, Armor, Bracelets
+2. All accessories and items.
+
+- Special Options
+1. Keyring option (Customizable)
+2. Statue and boss requirements
+3. Auto-equip options
+4. Client with memory integration
 * Everything is done using pymem, there is no .dll or similar hooks.
 
 * The game does not actually show any messages and does not change any sprites or anything, all information of what you send or get is in the Client only.

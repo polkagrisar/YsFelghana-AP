@@ -36,7 +36,7 @@ I also contemplated to not even post this apworld, since it is made by Ai, but I
 ## Requirements ##
 - Archipelago 0.6.7+
 - Ys: The Oath in Felghana (Steam), [Default Public Version Mar 11, 2020] #Not tested on anything else
-    Start it using the DirectX9 version (Just start the game normally, do not choose DirectX8)
+- Start it using the DirectX9 version (Just start the game normally, do not choose DirectX8)
 - Only tested on Windows 11
 
 ## Installation ##

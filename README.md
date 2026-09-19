@@ -12,21 +12,20 @@ I have comtemplated not even posting this apworld, since it is made by Ai, but I
 
 ## Features ##
 - Item and location randomization
-    Shop Items
-    Chests
-    Pots
-    Giving Items
-    Opening Doors
-    Defeating Bosses
+1. Shop Items
+2. Chests
+3. Pots
+4. Giving Items to people (not recieving items)
+5. Opening Doors
+6. Defeating Bosses
+7. 
 - Progressive Equipment
-    Swords, Shields, Armor, Bracelets (Optional)
+Swords, Shields, Armor, Bracelets (Optional)
 - Keyring option
 - Statue and boss requirements
-    How to open Valestein Castle, and getting to Genos Island.
 - Auto-equip options
-    The game can auto-equip items if you are in the room where it is needed.
 - Client with memory integration
-    Everything is done using pymem, there is no .dll or similar hooks.
+:Everything is done using pymem, there is no .dll or similar hooks.
 
 ## Requirements ##
 - Archipelago 0.6.7+

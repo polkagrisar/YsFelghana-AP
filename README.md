@@ -67,7 +67,8 @@ When the apworld is in the custom_worlds folder, The "Ys Felghana Client" will a
 ## Known Issues ##
 - The Stone Shoes might not work correctly when auto equipped upon entering a room, if the first surface you touch in that room is ice.
 - XP and Gold gets resent when reconnecting to the Server (unlimited Gold and XP).
-- Some flags might make it so you can't enter buildings in Redmont, progressing the game should fix it (looking into this).
+- Don't mind the dead guards outside Redmont, just reset the room (go inside the Town, or away from the Town), they will disappear either way.
+- The room in where the Ventus Bracelet is in Vanilla: Don't go in there, you might be "softlocked" from the lava chase. Just use the Wing Talisman if this happens (The Ventus location is not a location in this AP).
 
 ## Credits
 - Created by polkagrisar

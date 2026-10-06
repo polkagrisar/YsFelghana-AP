@@ -73,6 +73,10 @@ When the apworld is in the custom_worlds folder, The "Ys Felghana Client" will a
 3. Start the 'Ys Felghana Client' in the Archipelago Launcher, input the server:port, slot_name and password (if any).
 4. The Client should say: "=== Successfully connected to Archipelago! ===".
 
+-- Overlay --
+The client does give an overlay to the game window, that will show you when you recieve items or send locations.
+The client does not change any assets in the game, so opening the Ignis Bracelet Chest will still play the vanilla animation (which will be wrong from what is actually sent).
+
 Note: Starting other old saves WILL send out any locations that save has gotten, so don't do that unless you want to mess up the world for everyone, it might also remove items from that save, so do not save over any saves you don't want to mess up
 
 ## Quirks and logic specific to this randomizer ##

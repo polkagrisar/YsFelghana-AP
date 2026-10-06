@@ -9,7 +9,7 @@ The problems that it do have is a bit wonky Store locations, and some of the log
 This randomizer does use vibe coding, by Grok, and by Gemini.\
 Some things have been integrated without too much editing, so it wouldn't be completely unfair to call some of it Ai generated.\
 Specifically the archipelago library integration with the client is something I personally didn't understand that much about, and that is all made by the Ai.\
-All the memory addresses, flags and things have been manually found in Cheat Engine, no Ai has been used for that (except teaching me the program).\
+All the memory addresses, flags and things have been manually found in Cheat Engine, no Ai has been used for that (except teaching me the program).
 
 I have learnt a lot about Python, pymem, Cheat Engine and more, so hopefully my next apworld will use much less Ai.\
 I also contemplated to not even post this apworld, since it is made possible by Ai, but I wanted to share it anyways, especially since I have gotten to enjoy many other peoples apworlds.

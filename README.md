@@ -92,6 +92,7 @@ Note: Starting other old saves WILL send out any locations that save has gotten,
 - Don't mind the dead guards outside Redmont, just reset the room (go inside the Town, or away from the Town), they will disappear either way.
 - The room where the Ventus Bracelet is in Vanilla: Don't go in there, you might be "softlocked" from the lava chase, just use the Wing Talisman if this happens (The Ventus location is not a location in this AP).
 - The Boss "Guilen" (boss by the Vanilla Ventus Bracelet) will spawn if you walk to the start of the corridor towards Vanilla Ventus Bracelet (You must have Ventus Bracelet unlocked).
+- The Armless Trap also make it so you keep healing to full health.
 
 ## Credits
 - Created by polkagrisar

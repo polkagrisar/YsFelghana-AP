@@ -104,6 +104,9 @@ class NotificationOverlay:
             elif category == "dash":
                 x = right - 180
                 y = top + 50
+            elif category == "bossinfo":
+                x = left + (game_width // 2) - (popup_width // 2)
+                y = bottom - 165
             elif category == "armtrap":
                 x = left + (game_width // 2) - (popup_width // 2)
                 y = bottom - 180
@@ -171,10 +174,9 @@ class YsFelghanaContext(CommonContext):
             self.statues_required = slot_data.get("statues_required", 2)
             self.bosses_required = slot_data.get("bosses_required", 2)
             self.keyring_item = slot_data.get("keyring_item", 0)
-            self.auto_item = slot_data.get("auto_item", 0)
+            self.auto_item = slot_data.get("auto_item", 1)
             self.brocia_serum_change = slot_data.get("brocia_serum_change", 0)
-            self.open_dungeon = slot_data.get("open_dungeon", 1)
-            self.sword_anywhere = slot_data.get("sword_anywhere", 1)
+            self.sword_anywhere = slot_data.get("sword_anywhere", 0)
 
             missing_locs = [loc_id for loc_id in location_name_to_id.values() if loc_id not in self.sent_locations]
             if missing_locs:
@@ -191,9 +193,8 @@ class YsFelghanaContext(CommonContext):
 
             try:
                 self.memory = YsMemory(
-                    bosses_required=self.bosses_required,
                     statues_required=self.statues_required,
-                    open_dungeon=self.open_dungeon,
+                    bosses_required=self.bosses_required,
                     brocia_serum_change=self.brocia_serum_change,
                     sword_anywhere=self.sword_anywhere,
                 )
@@ -282,14 +283,16 @@ class YsFelghanaContext(CommonContext):
                     elif item_name == "Keyring":
                         self.memory.give_keys()
                     elif xp_amount > 0:
-                        if not is_reconnect_sync:
-                            self.memory.give_xp(xp_amount)
+                        self.memory.obtained_xp += xp_amount
                     elif raval_amount > 0:
                         if not is_reconnect_sync:
                             self.memory.add_raval(raval_amount)
                     elif gold_amount > 0:
                         if not is_reconnect_sync:
                             self.memory.add_gold(gold_amount)
+
+                    elif item_name == "Magic Wallet":
+                        self.memory.magic_wallet_count += 1
 
                     #Traps
                     elif item_name == "Armless Trap":
@@ -373,6 +376,13 @@ class YsFelghanaContext(CommonContext):
                 except Exception as e:
                     print(f"Error in remove_unauthorized_items: {e}")
 
+                # New handlers
+                try:
+                    self.memory.xp_handler()
+
+                except Exception as e:
+                    print(f"Error in handlers: {e}")
+
                 # 5. Sync missing items
                 try:
                     received_item_names = [
@@ -410,7 +420,7 @@ class YsFelghanaContext(CommonContext):
 
                 # 7. Auto equip
                 try:
-                    if self.auto_item == 0:
+                    if self.auto_item:
                         current = self.memory.get_equipped_accessory()
                         if current not in (21, 23):
                             self.memory.auto_equip_accessory()
@@ -421,9 +431,10 @@ class YsFelghanaContext(CommonContext):
                 print(f"Error in watcher loop: {e}")
 
             if self.overlay:
-                # Example 1: Show persistent overlay when menu/flag condition is met (var == 1)
+                # Show popups during the menu if you have doublejump or dash
+                menu_open = self.memory.safe_read_int(self.memory.menu_open_address) == 1
+
                 if self.memory.has_item("Double Jump"):
-                    menu_open = self.memory.safe_read_int(self.memory.menu_open_address) == 1
                     self.overlay.set_persistent(
                         name="doublejump_indicator",
                         text="Doublejump",
@@ -432,14 +443,25 @@ class YsFelghanaContext(CommonContext):
                     )
 
                 if self.memory.has_item("Dash"):
-                    menu_open = self.memory.safe_read_int(self.memory.menu_open_address) == 1
-                    self.overlay.set_persistent(
+                        self.overlay.set_persistent(
                         name="dash_indicator",
                         text="Dash",
                         show=menu_open,
                         category="dash"
                     )
 
+                # Show information in the menu
+                #bosses_killed  = str(self.memory.has_bosses(checked_names))
+                #bosses_needed = str(self.bosses_required)
+                
+                #self.overlay.set_persistent(
+                #    name="show_bosses",
+                #    text=bosses_killed + " / " + bosses_needed,
+                #    show=menu_open,
+                #    category="bossinfo"
+                #)
+
+                # Show popups if you have a trap active
                 is_armless = "Armless Trap" in self.memory.active_traps
                 self.overlay.set_persistent(
                     name="armless_trap",

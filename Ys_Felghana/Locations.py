@@ -81,7 +81,6 @@ location_names = [
     "Lava - Defeat Guilen",
     "Lava - Defeat Gyalva",
     "Lava - Raval Ore x12 Chest",
-    #"Lava - Emerald Chest" *Have not found and added for some reason 
 
     ### Abandoned Mine ###
     "Mine - Pot First Shaft Top",
@@ -156,7 +155,7 @@ location_names = [
     "Castle - Pot Boulder Room 2",		#stoneshoes
     "Castle - Pot Lava Room",			#doublejump, ventus
     "Castle - Battle Shield Chest",		#doublejump + terra, ventus + terra
-    "Castle - Raval Ore x380 Chest",			#Nightgem
+    "Castle - Raval Ore x380 Chest",	#Nightgem
     "Castle - Defeat Zellfel",			#Nightgem
 
     ### Castle Dungeon ###
@@ -165,7 +164,7 @@ location_names = [
     "Dungeon - Battle Saber Chest",         #ventus, #doublejump + terra_jump1
     "Dungeon - Pot First Room Stairs",      #ventus, #doublejump + terra_jump1
     "Dungeon - Defeat Zirduros",
-    #"Clock - Open Clock Tower Door",        #clock_key
+    #"Clock - Open Clock Tower Door",       #clock_key
     "Clock - Ruby Chest",                   #doublejump + clock_key + ventus, clock_key + doublejump + ignis
 
     ### Clock Tower ###

@@ -19,8 +19,8 @@ item_table = {
     "Progressive Shield":    ItemClassification.useful,
 
     "Ruby":                  ItemClassification.useful,
-    "Emerald":               ItemClassification.useful,
-    "Topaz":                 ItemClassification.progression,
+    "Emerald":               ItemClassification.progression_skip_balancing,
+    "Topaz":                 ItemClassification.progression_skip_balancing,
 
     ### Accessoaries ###
     "Firewyrm's Amulet":     ItemClassification.progression,
@@ -46,7 +46,7 @@ item_table = {
     "Ruins Key":             ItemClassification.progression,
     "Clock Tower Key":       ItemClassification.progression,
 
-    "Mission Tablet":        ItemClassification.progression,
+    "Mission Tablet":        ItemClassification.useful,
     "Organ Pipe":            ItemClassification.progression,
     "Ivory Key":             ItemClassification.progression,
     "Holy Cross":            ItemClassification.progression,
@@ -70,16 +70,19 @@ item_table = {
     #"Useful" filler
     "XP x50000":             ItemClassification.useful,
     "XP x25000":             ItemClassification.useful,
+    "XP x15000":             ItemClassification.useful,
+    "XP x10000":             ItemClassification.useful,
     "Raval Ore x2000":       ItemClassification.useful,
-    "Gold x15000":           ItemClassification.progression,
-    "Gold x10000":           ItemClassification.progression,
+    #"Gold x15000":          ItemClassification.progression_skip_balancing,
+    #"Gold x10000":          ItemClassification.progression_skip_balancing,
+    "Magic Wallet":          ItemClassification.progression_skip_balancing,
 
     # ======================
     # Filler
     # ======================
     "Raval Ore x200":        ItemClassification.filler,
     "XP x5000":              ItemClassification.filler,
-    "Gold x5000":            ItemClassification.filler,
+    #"Gold x5000":           ItemClassification.filler,
 
     # ======================
     # Traps

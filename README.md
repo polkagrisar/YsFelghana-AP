@@ -21,7 +21,7 @@ I also contemplated to not even post this apworld, since it is made possible by 
 4. Giving Berm Leaves to Hugo, giving Bob's Pendant
 5. Defeating the Bosses
 
-Note: I have added all the chests and pots manually, and I keep finding new ones. Feel free to tell me if you found something I've missed.\
+Note: I have added all the chests and pots manually, and I keep finding new ones. Feel free to tell me if you found something I've missed.
 
 Nothing is missable and nothing can become softlocked, but some shop-items might automatically send themselves in the store.\
 Logic is all working and done, but the Castle might be a bit wonky, or not very noob friendly.\
@@ -33,7 +33,7 @@ Any item given by other NPCs or that is found in the Overworld except Bob's Pend
 3. All accessories, with an option that auto-equips them when needed.
 4. All the items.
 5. XP, Gold, Raval Ore in various amounts (boring filler)
-6. Traps. \
+6. Traps.\
 "Armless Trap": You can't attack for a short while.\
 "Slippery Trap": The game get Ice-physics for a short while.\
 (Feel free to give more ideas for fun traps).
@@ -46,8 +46,7 @@ Note: Katol Elixirs, Illusion Mirror and Amulet are currently infinite uses.
 3. Choose how many of the 12 bosses are needed to access Genos Island.
 4. Option to auto-equip accessories depending on the room you are in.
 5. Brocia Serum rework, can be used to set your level or just give flat-xp.
-
-Note: I will add trap % customization later
+6. Change % of filler to Traps
 
 ## GOAL ##
 1. The Goal is sent when defeating Galbalan on Genos Island.
@@ -72,14 +71,14 @@ When the apworld is in the custom_worlds folder, The "Ys Felghana Client" will a
 3. Start the 'Ys Felghana Client' in the Archipelago Launcher, input the server:port, slot_name and password (if any).
 4. The Client should say: "=== Successfully connected to Archipelago! ===".
 
--- Overlay --
+-- Overlay --\
 The client does give an overlay to the game window, that will show you when you recieve items or send locations.
 The client does not change any assets in the game, so opening the Ignis Bracelet Chest will still play the vanilla animation (which will be wrong from what is actually sent).
 
 Note: Starting other old saves WILL send out any locations that save has gotten, so don't do that unless you want to mess up the world for everyone, it might also remove items from that save, so do not save over any saves you don't want to mess up
 
 ## Quirks and logic specific to this randomizer ##
-- Many cutscenes are skipped or removed, there is no escort quest, Dogi does not throw you the Terra Bracelet and you can just walk over the gap./
+- Many cutscenes are skipped or removed, there is no escort quest, Dogi does not throw you the Terra Bracelet and you can just walk over the gap.\
   The most noticeable cutscene that remain is the first time you fight Chester and he throws you down to the Lava Zone.
 - When in Redmont some of your Equipment might/will disappear, this is because of the way the flags in the store works. Just exit the town and they will all come back, this approach does however sadly prevent you from upgrading some equipment.
 - Abandonded Mine will only be accessible when you have the "Nightfire Gem" item.
@@ -88,7 +87,6 @@ Note: Starting other old saves WILL send out any locations that save has gotten,
 
 ## Known Issues ##
 - The Stone Shoes might not work correctly when auto equipped upon entering a room, if the first surface you touch in that room is ice.
-- XP and Gold gets resent when reconnecting to the Server (unlimited Gold and XP).
 - Don't mind the dead guards outside Redmont, just reset the room (go inside the Town, or away from the Town), they will disappear either way.
 - The room where the Ventus Bracelet is in Vanilla: Don't go in there, you might be "softlocked" from the lava chase, just use the Wing Talisman if this happens (The Ventus location is not a location in this AP).
 - The Boss "Guilen" (boss by the Vanilla Ventus Bracelet) will spawn if you walk to the start of the corridor towards Vanilla Ventus Bracelet (You must have Ventus Bracelet unlocked).

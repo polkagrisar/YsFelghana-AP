@@ -60,6 +60,8 @@ REDMONT = {20, 21, 22, 24, 25, 26, 27, 28, 29, 30, 31, 34, 36, 43}
 CASTLE_ENTRY = {40, 46, 160}   # outside / entrance only if needed
 CAVE_GAP = {147, 148, 151, 157, 158}
 GENOS_UNLOCK = {41, 46, 206}
+FREEZE_XP = {55, 65, 108, 115, 123, 81, 136, 157, 171, 185, 193, 204, 209, 224,
+             69, 67, 128, 130, 83, 142, 158, 174, 188, 196, 206, 213, 226, 227, 228, 229}
 
 ROOMS = {
 
@@ -168,14 +170,13 @@ ROOMS = {
 
 
 class YsMemory:
-    def __init__(self, bosses_required: int = 2, statues_required: int = 2, open_dungeon: int = 1, brocia_serum_change: int = 0, sword_anywhere: int = 1):
+    def __init__(self, statues_required: int = 4, bosses_required: int = 12, brocia_serum_change: int = 0, sword_anywhere: int = 1):
         self.pm = Pymem("ysf_win_dx9.exe")
         self.base = self.pm.base_address
         self.module_base = self.base  # Fix: Set module_base to base address
         print(f"Attached to Ys! Base: {hex(self.base)}")
 
-        self.xp_address = self.base + 0x1C4398
-
+        ## --- list of items obtained --- ###
         self.progressive_sword_count = 0
         self.progressive_shield_count = 0
         self.progressive_armor_count = 0
@@ -183,6 +184,9 @@ class YsMemory:
         self.progressive_ignis_count = 0
         self.progressive_ventus_count = 0
         self.progressive_terra_count = 0
+
+        self.magic_wallet_count = 0
+        self.obtained_xp = 0
 
         self.ruby_debt = 0
         self.emerald_debt = 0
@@ -192,13 +196,16 @@ class YsMemory:
 
         self.shop_bought = set()
 
+        self.actual_level = 0
+        self.actual_xp = 0
+
         self.actual_katol = 0
         self.actual_mirror = 0
         self.actual_amulet = 0
 
+        ## Options
         self.bosses_required = bosses_required
         self.statues_required = statues_required
-        self.open_dungeon = open_dungeon
         self.brocia_serum_change = brocia_serum_change
         self.sword_anywhere = sword_anywhere
 
@@ -230,6 +237,8 @@ class YsMemory:
             "Amulet",
             "Illusion Mirror",
             "Armless Trap",
+            "Slippery Trap",
+            "Magic Wallet",
         }
 
         self.authorized_items.update(allowed_items)
@@ -524,6 +533,10 @@ class YsMemory:
     def current_level(self):
         return self.base + 0x1C43B0
 
+    @property
+    def xp_address(self):
+        return self.base + 0x1C4398
+
     def get_room_id(self) -> int:
         return self.safe_read_int(self.room_id_address)
 
@@ -564,7 +577,7 @@ class YsMemory:
 
             if self.armless == True:
                 safe_write("Use Sword Anywhere", 1)
-            elif self.sword_anywhere == 0 or room not in REDMONT:
+            elif self.sword_anywhere or room not in REDMONT:
                 safe_write("Use Sword Anywhere", 0)
 
             #nop_chest = self.get_pointer_address(0x00001214, [0x944])
@@ -601,8 +614,8 @@ class YsMemory:
             #    safe_write("Open Castle Doors", 0)
 
             #Open Castle Dungeons
-            if self.open_dungeon == 0:
-                safe_write("Open Castle Dungeon", 1)
+            #if self.open_dungeon:
+            #    safe_write("Open Castle Dungeon", 1)
 
             #if room in CAVE_GAP:
             #    safe_write("Open Cave", 1)
@@ -643,13 +656,33 @@ class YsMemory:
                 if room not in REDMONT:
                     safe_write("Open Valestein Castle", 0)
 
-            #Open Way to Genos Island
+            # Open the way to Genos Island
             if self.has_enough_bosses(checked_names) and room in GENOS_UNLOCK:
                 safe_write("Top of Castle Cutscene", 1)
             elif room in (204, 206, 208):
                 safe_write("Top of Castle Cutscene", 1)
             else:
                 safe_write("Top of Castle Cutscene", 0)
+
+            # Magic Wallet set Gold
+            current_gold = self.get_gold()
+            gold = 50
+            if self.magic_wallet_count > 0:
+                gold = 800
+            if self.magic_wallet_count > 1:
+                gold = 3500
+            if self.magic_wallet_count > 2:
+                gold = 16000
+            if self.magic_wallet_count > 3:
+                gold = 24000
+            if self.magic_wallet_count > 4:
+                gold = 60000
+            if self.magic_wallet_count > 5:
+                gold = 999999
+            
+            if current_gold is not gold:
+                self.set_gold(gold)
+
 
             #Experiments
             #safe_write("Teleport Location", 0) (Works)
@@ -694,9 +727,36 @@ class YsMemory:
         defeated_count = sum(
             1 for b in bosses 
             if b in checked_names or self.is_location_checked(b, for_sending=False)
-        )
-        
+        )        
         return defeated_count >= self.bosses_required
+
+    def has_bosses(self, checked_names: set = None) -> int:
+        bosses = [
+            "Quarry - Defeat Dularn",
+            "Quarry - Defeat Ellefale",
+            "Illburn - Defeat Chester",
+            "Lava - Defeat Guilen",
+            "Lava - Defeat Gyalva",
+            "Mine - Defeat Istersiva",
+            "Mountain - Defeat Ligaty",
+            "Cave - Defeat Gildias",
+            "Castle - Defeat Faleon",
+            "Castle - Defeat Zellfel",
+            "Dungeon - Defeat Zirduros",
+            "Castle - Defeat Chester",
+            "Genos - Defeat Dularn",
+            "Genos - Defeat Garland",
+        ]
+        
+        if checked_names is None:
+            checked_names = set()
+
+        # Checks if boss is recorded locally OR synced from the server
+        defeated_count = sum(
+            1 for b in bosses 
+            if b in checked_names or self.is_location_checked(b, for_sending=False)
+        )        
+        return defeated_count
 
     def get_room_id(self) -> int:
         return self.safe_read_int(self.room_id_address)
@@ -837,13 +897,6 @@ class YsMemory:
         except Exception as e:
             print(f"[set_xp] write_float failed: {e}")
 
-        # Verify
-        try:
-            got = self.pm.read_float(addr)
-            print(f"[set_xp] wrote {value}, read back {got}")
-        except Exception as e:
-            print(f"[set_xp] read back failed: {e}")
-
     def set_level(self, value: int):
         self.safe_write_int(self.current_level, value)
 
@@ -866,9 +919,11 @@ class YsMemory:
     def get_item_address(self, item_name):
         if item_name not in ITEMS:
             raise ValueError(f"Item '{item_name}' not found")
-        if not self.item_base:
+        offset = ITEMS[item_name]
+        if offset is None or not self.item_base:
             return 0
-        return self.item_base + ITEMS[item_name]
+        
+        return self.item_base + offset
 
     def has_item(self, item_name):
         addr = self.get_item_address(item_name)
@@ -912,8 +967,8 @@ class YsMemory:
 
     def remove_unauthorized_items(self):       
         try:
-            for item_name in ITEMS:
-                if item_name in ("Armless Trap", "Slippery Trap"):
+            for item_name, offset in ITEMS.items():
+                if offset is None:
                     continue
 
                 if self.has_item(item_name) and item_name not in self.authorized_items:
@@ -1151,19 +1206,19 @@ class YsMemory:
             sword = SWORD_PROGRESSION[i]
             if not self.has_item(sword):
                 self.give_item(sword)
-                self.safe_write_int(self.get_flag_address(self.story_flags["Sword Equipped"]), min(self.progressive_sword_count, 5))
+                #self.safe_write_int(self.get_flag_address(self.story_flags["Sword Equipped"]), min(self.progressive_sword_count, 5))
 
         for i in range(min(self.progressive_shield_count + 1, len(SHIELD_PROGRESSION))):
             shield = SHIELD_PROGRESSION[i]
             if not self.has_item(shield):
                 self.give_item(shield)
-                self.safe_write_int(self.get_flag_address(self.story_flags["Shield Equipped"]), min(self.progressive_shield_count+5, 11))
+                #self.safe_write_int(self.get_flag_address(self.story_flags["Shield Equipped"]), min(self.progressive_shield_count+5, 11))
 
         for i in range(min(self.progressive_armor_count + 1, len(ARMOR_PROGRESSION))):
             armor = ARMOR_PROGRESSION[i]
             if not self.has_item(armor):
                 self.give_item(armor)
-                self.safe_write_int(self.get_flag_address(self.story_flags["Armor Equipped"]), min(self.progressive_armor_count+11, 17))
+                #self.safe_write_int(self.get_flag_address(self.story_flags["Armor Equipped"]), min(self.progressive_armor_count+11, 17))
                 
     def rebuild_from_received(self, received_item_names: list[str]):
         """Call this on connect / reconnect to restore progressive counts and authorized items."""
@@ -1274,7 +1329,7 @@ class YsMemory:
             return
 
         
-        if self.brocia_serum_change not in (1, 2, 3, 4,5):
+        if self.brocia_serum_change not in (1, 2, 3, 4, 5):
             return
 
         #Set your level to the boss level
@@ -1334,6 +1389,32 @@ class YsMemory:
         print("Read level", self.safe_read_int(self.current_level))
         #print("Read xp", self.pm.read_float(self.xp_address))
 
+## HANDLERS
+
+    def inventory_handler(self):
+        pass
+
+    def xp_handler(self):
+        
+        room = self.get_room_id()
+
+        current_xp = self.pm.read_float(self.xp_address)
+
+        if room in FREEZE_XP and self.actual_xp == 0:
+            self.actual_xp = current_xp
+            self.actual_level = self.safe_read_int(self.current_level)
+
+        if self.actual_xp > 0 and room not in FREEZE_XP:
+            self.set_xp(self.actual_xp)
+            self.set_level(self.actual_level)
+            self.actual_xp = 0
+            self.actual_level = 0
+
+        if self.obtained_xp > current_xp and room not in FREEZE_XP:
+                self.set_xp(self.obtained_xp)
+
+
+## TRAPS
     def armless_trap(self, active: bool):
         self.armless = active
 

@@ -79,9 +79,13 @@ ITEMS = {
     "Darkness Statue": 0xD8,
     "Light Statue": 0xDC,
 
+    "Keyring": None,
+    "Magic Wallet": None,
+
 #Abilities
     "Double Jump": 0x204,
     "Dash": 0x24C,
+
 
 #Traps
     "Armless Trap": None,

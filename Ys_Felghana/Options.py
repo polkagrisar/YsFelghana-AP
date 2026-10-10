@@ -66,31 +66,19 @@ class BossesRequired(Range):
     range_end = 12
     default = 12
 
-class OpenDungeon(Choice):
-    """
-    Should the Dungeon in Valestein Castle always be open, or require placing the three Organ Parts (Vanilla, closed).
-    Either way, the organ parts can still be placed for their locations.
-    Note: You still need to be able to enter Valestein Castle before you can reach the Dungeon.
-    """
-    display_name = "Open Valestein Dungeon"
-    option_open = 0
-    option_closed = 1
-    default = 1
-
-### Quality of Life ###
 class AutoItem(Choice):
     """
-    If true:
-    When you have them, the "Nightfire Gem" will automatically be equipped in the Abandoned Mine,
-    the "Firewyrm's Amulet" will automatically be equipped in the Lava Zone,
-    and the "Stone Shoes" will automatically be equipped in the Icebound Cave.
+    If on:
+    When you have them, the "Nightfire Gem" will automatically be equipped in any dark room,
+    the "Firewyrm's Amulet" will automatically be equipped in any room with lava,
+    and the "Stone Shoes" will automatically be equipped in any room with slippery floor.
 
     Note: They will not be equipped automatically if you have the "Spirit Cape" or the "Spirit Necklace" equipped
     """
     display_name = "Auto-equip Items"
-    option_true = 0
-    option_false = 1
-    default = 0
+    option_on = 1
+    option_off = 0
+    default = 1
 
 class BrociaSerumChange(Choice):
     """
@@ -121,13 +109,24 @@ class BrociaSerumStart(Toggle):
 
 class UseSwordAnywhere(Choice):
     """
-    Let's you use the sword anywhere (and also doublejump if you have it)
-    Has no actual impact on gameplay or logic
+    Let's you use the sword anywhere (also doublejump and any bracelet if you have it)
+    Should have no actual impact on gameplay or logic
     """
     display_name = "Use the sword anywhere"
-    option_true = 0
-    option_false = 1
-    default = 1
+    option_true = 1
+    option_false = 0
+    default = 0
+
+class TrapFiller(Range):
+    """
+    Change a percentage of all filler items into Traps instead.
+    Note: This is in addition to the 10 of each trap already in
+    the pool (2 different traps for 20 traps at the moment)
+    """
+    display_name = "Replace filler with Traps"
+    range_start = 0
+    range_end = 100
+    default = 0
 
 @dataclass
 class YsFelghanaOptions(PerGameCommonOptions):
@@ -136,9 +135,9 @@ class YsFelghanaOptions(PerGameCommonOptions):
     statue_placement: StatuePlacement
     statues_required: StatuesRequired
     bosses_required: BossesRequired
-    open_dungeon: OpenDungeon
     auto_item: AutoItem
     keyring_item: KeyringItem
     brocia_serum_change: BrociaSerumChange
     brocia_start: BrociaSerumStart
     sword_anywhere: UseSwordAnywhere
+    trap_filler: TrapFiller

@@ -54,7 +54,6 @@ def create_regions(world: MultiWorld, player: int):
     options = world.worlds[player].options
     bosses_required = options.bosses_required.value
     statues_required = options.statues_required.value
-    open_dungeon = options.open_dungeon.value
 
     # ======================
     # Redmont Locations
@@ -114,7 +113,8 @@ def create_regions(world: MultiWorld, player: int):
         "Illburn - Raval Ore x6 Chest",
         "Illburn - Raval Ore x12 Chest",
         "Illburn - Pot Early Left",
-        "Illburn - Pot Upper Room", #ventus_ignis or doublejump(?)
+        "Illburn - Pot Upper Room",
+        "Illburn - Raval Ore x20 Chest",
         "Illburn - Pot Right",
 
     ]
@@ -127,7 +127,6 @@ def create_regions(world: MultiWorld, player: int):
         "Illburn - Ruby Chest",
         "Illburn - Raval Ore x8 Chest",
         "Illburn - Spirit Cape Chest",
-        "Illburn - Raval Ore x20 Chest",
         "Illburn - Pot End",
         "Illburn - Pot End Up",
         "Illburn - Pot End Down 1",
@@ -150,6 +149,7 @@ def create_regions(world: MultiWorld, player: int):
         "Lava - Pot In Chasm",
         "Lava - Pot Mozgouz Room",
         "Lava - Pot Behind Rock Wall", #terra
+        "Lava - Pot Right",
 
     ]
     for name in lava_locations:
@@ -157,11 +157,11 @@ def create_regions(world: MultiWorld, player: int):
 
     lava_lava_locations = [
 
-        "Lava - Broadsword Chest", #Firewyrm
-        "Lava - Pot Cliff Decend Top", #Firewyrm
-        "Lava - Pot Cliff Descend Bottom", #Firewyrm
+        "Lava - Broadsword Chest",
+        "Lava - Pot Cliff Decend Top",
+        "Lava - Pot Cliff Descend Bottom",
         "Lava - Emerald Chest",
-        "Lava - Defeat Guilen", #Firewyrm ventus
+        "Lava - Defeat Guilen",
 
     ]
     for name in lava_lava_locations:
@@ -170,7 +170,6 @@ def create_regions(world: MultiWorld, player: int):
     lava_right_locations = [
 
         ##After the ventus or doublejump side
-        "Lava - Pot Right",
         "Lava - Defeat Gyalva",
         "Lava - Pot Ledge", #doublejump
         "Lava - Katol Elixir Chest", #doublejump
@@ -202,8 +201,9 @@ def create_regions(world: MultiWorld, player: int):
 
         "Mine - Emerald Chest", #ventus+dash+doublejump
         "Mine - Katol Elixir Chest", #ventus, dash+doublejump
+
         "Mine - Raval Ore x65 Chest", #ventus+doublejump
-        "Mine - Raval Ore x200 Chest", #ventus + doublejump + terra        
+        "Mine - Raval Ore x200 Chest", #ventus + doublejump + terra  
         "Mine - Pot behind Rock",	#ventus + doublejump + terra
         "Mine - Defeat Istersiva", #ventus + doublejump
     ]
@@ -402,10 +402,16 @@ def create_regions(world: MultiWorld, player: int):
         "prog_sword4":      lambda state: state.has("Progressive Sword", player, 4),
         "prog_sword5":      lambda state: state.has("Progressive Sword", player, 5),
         "chester1":         lambda state: state.has("Defeated Chester 1", player),
-        "gyalva":         lambda state: state.has("Defeated Gyalva", player),
+        "gyalva":           lambda state: state.has("Defeated Gyalva", player),
         "faleon":           lambda state: state.has("Defeated Faleon", player),
-        "gold":             lambda state: state.has("Gold x10000", player, 7),
-        "gold2":            lambda state: state.has("Gold x15000", player, 3),
+        #"gold":             lambda state: state.has("Gold x10000", player, 3),
+        #"gold2":            lambda state: state.has("Gold x10000", player, 7),
+        #"gold3":            lambda state: state.has("Gold x15000", player, 4),
+        "wallet1":          lambda state: state.has("Magic Wallet", player, 1),
+        "wallet2":          lambda state: state.has("Magic Wallet", player, 2),
+        "wallet3":          lambda state: state.has("Magic Wallet", player, 3),
+        "wallet4":          lambda state: state.has("Magic Wallet", player, 4),
+        "wallet5":          lambda state: state.has("Magic Wallet", player, 5),
 
     }
 
@@ -417,13 +423,17 @@ def create_regions(world: MultiWorld, player: int):
         return has_ventus or has_ignis or has_doublejump
 
     location_rules = {
-        ## Redmont + Quarry ## 
-        "Redmont - Buy Banded Slayer":      rules["gold"],       #Same flags as the items #24000 Gold
-        "Redmont - Buy Banded Shield":      rules["gold"],      #Same flags as the items #16000 Gold
-        "Redmont - Buy Banded Mail":        rules["gold"],    #Same flags as the items #18000 Gold
-        "Redmont - Buy Katol Elixir":       rules["gold"],      #Same flags as the items #10000 Gold
-        "Redmont - Buy Spirit Necklace":    rules["gold2"],       #Same flags as the items #60000 Gold
+        ## --- redmont --- ## 
+        "Redmont - Buy Long Sword":         rules["wallet1"],     # 800 Gold
+        "Redmont - Buy Large Shield":       rules["wallet2"],     # 2800 Gold
+        "Redmont - Buy Chain Mail":         rules["wallet1"],     # 650 Gold
+        "Redmont - Buy Plate Mail":         rules["wallet2"],     # 3500 Gold
 
+        "Redmont - Buy Banded Slayer":      rules["wallet4"],     # 24000 Gold
+        "Redmont - Buy Banded Shield":      rules["wallet3"],     # 16000 Gold
+        "Redmont - Buy Banded Mail":        rules["wallet4"],     # 18000 Gold
+        "Redmont - Buy Katol Elixir":       rules["wallet3"],     # 10000 Gold
+        "Redmont - Buy Spirit Necklace":    rules["wallet5"],     # 60000 Gold
 
         "Redmont - Return Bob's Pendant": rules["bob"],
         "Redmont - Give Hugo a Berm Leaves": rules["berm"],
@@ -431,6 +441,7 @@ def create_regions(world: MultiWorld, player: int):
         #"Redmont - Sell the Jade Ring to Cynthia": rules["jade"],
         #"Redmont - Give Adonis the Lotus Hammer": rules["lotus"],
 
+        ## --- quarry --- ## 
         "Quarry - Bob's Pendant":           lambda state: rules["ventus"](state) or
                                                              rules["doublejump"](state), 
         "Quarry - Pot Bob's Pendant":         lambda state: rules["ventus"](state) or
@@ -442,55 +453,62 @@ def create_regions(world: MultiWorld, player: int):
         "Quarry - Defeat Ellefale": rules["ignis"],
         "Quarry - Torch Ruby Chest": rules["ignis"],
         
-        "Quarry - Raval Ore x8 Chest": lambda state: (rules["ventus"](state) or
+        "Quarry - Raval Ore x8 Chest": lambda state: rules["ventus"](state) or
                                                       rules["doublejump"](state) or
-                                                      rules["terra_jump"](state)),
+                                                      rules["terra_jump"](state),
 
-        ## Illburn + Lava ## 
-        "Illburn - Raval Ore x20 Chest": lambda state: (rules["ventus_ignis"](state)
-                                                   or rules["doublejump"](state)
-                                                   or rules["terra_jump2"](state)),
-        "Illburn - Pot Upper Room": lambda state: rules["ventus_ignis"](state)
-                                                   or rules["doublejump"](state)
-                                                   or (rules["terra_jump2"](state) and rules["ignis"](state)),
+        ## --- illburn --- ## 
+        "Illburn - Raval Ore x20 Chest": lambda state: rules["ventus_ignis"](state) or rules["doublejump"](state)
+                                                or (rules["terra_jump2"](state) and rules["ignis"](state)),
+        "Illburn - Pot Upper Room": lambda state: rules["ventus_ignis"](state) or rules["doublejump"](state)
+                                                or (rules["terra_jump2"](state) and rules["ignis"](state)),
+
+        ## --- illburn_right --- ## 
         "Illburn - Raval Ore x8 Chest": rules["ignis"],
         "Illburn - Spirit Cape Chest": rules["terra"],
 
+        ### --- lava --- ###
         "Lava - Raval Ore x200 Chest": rules["terra"],
         "Lava - Pot Behind Rock Wall": rules["terra"],
+        "Lava - Pot Right": lambda state: rules["ventus"](state) or
+                                        rules["doublejump"](state) or
+                                        rules["ignis"](state),
         "Lava - Emerald Chest": rules["ventus"],
-        "Lava - Pot Ledge": rules["doublejump"],
-        "Lava - Katol Elixir Chest": rules["doublejump"],
-        "Lava - Defeat Guilen": lambda state: (rules["ventus"](state) and
-                                               rules["firewyrm"](state) and
-                                               rules["prog_sword2"](state)),
-        "Lava - Pot Right": lambda state: (rules["ventus"](state) or
-                                            rules["doublejump"](state) or
-                                            rules["ignis"](state)),
+
+
+        ### --- lava_lava--- ###
+        "Lava - Defeat Guilen": lambda state: rules["ventus"](state) and
+                                        rules["prog_sword2"](state),
+
+        ### --- lava_right--- ###
+
         "Lava - Raval Ore x12 Chest": rules["gyalva"],
         "Lava - Defeat Gyalva": rules["prog_sword2"],
+        "Lava - Pot Ledge": rules["doublejump"],
+        "Lava - Katol Elixir Chest": rules["doublejump"],
 
-        ## Mine ## 
+        ## --- mine --- ## 
         "Mine - Pot First Shaft Right Room": lambda state: rules["ventus"](state) or
                                                             rules["dash_doublejump"](state),    #ventus, dash + doublejump, 
         "Mine - Raval Ore x50 Chest": lambda state: rules["ventus"](state) or
-                                                     rules["dash_doublejump"](state), 				
-        "Mine - Emerald Chest": lambda state: (rules["ventus"](state) and
-                                                     rules["dash_doublejump"](state)) or
-                                                     (rules["ventus2"](state)), 	#ventus charge
-        "Mine - Katol Elixir Chest": lambda state: (rules["ventus"](state) or
-                                                     rules["dash_doublejump"](state)),
-        "Mine - Raval Ore x65 Chest": lambda state: rules["ventus"](state) and
-                                                     rules["doublejump"](state), 
-        "Mine - Raval Ore x200 Chest": lambda state: (rules["ventus"](state) and
-                                                     rules["doublejump"](state) and
-                                                     rules["terra"](state)),       
-        "Mine - Pot behind Rock": lambda state: (rules["ventus"](state) and
-                                                     rules["doublejump"](state) and
-                                                     rules["terra"](state)),
+                                                     rules["dash_doublejump"](state),
+                                                     			
+
+        ## --- mine_deep--- ## 
+        "Mine - Emerald Chest": lambda state: (rules["ventus"](state) and rules["dash_doublejump"](state))
+                                                or rules["ventus2"](state),
+        "Mine - Katol Elixir Chest": lambda state: rules["ventus"](state) or rules["dash_doublejump"](state),
+        "Mine - Raval Ore x65 Chest": lambda state: rules["ventus"](state) and rules["doublejump"](state),
+
+        ## --- mine_deepest --- ### ventus
+        "Mine - Raval Ore x200 Chest": lambda state: rules["ventus"](state) and rules["doublejump"](state)
+                                                     and rules["terra"](state),       
+        "Mine - Pot behind Rock": lambda state: rules["ventus"](state) and rules["doublejump"](state)
+                                                     and rules["terra"](state),
         "Mine - Defeat Istersiva": lambda state: rules["ventus"](state) and
                                                      rules["doublejump"](state) and
                                                      rules["prog_sword2"](state),
+
 
         "Cave - Defeat Gildias":   rules["prog_sword3"],
         "Dungeon - Defeat Zirduros": rules["prog_sword4"],
@@ -500,12 +518,23 @@ def create_regions(world: MultiWorld, player: int):
         "Mountain - Berm Leaves 3": rules["terra_or_ignis"],
         "Mountain - Katol Elixir Chest": rules["dash_or_ventus"],
 
-        "Castle - Raval Ore x200 Chest": lambda state: rules["doublejump"](state) or
+        "Castle - Raval Ore x200 Chest": lambda state: rules["doublejump"](state) or ### Check logic, (or terra) makes no sense
                                         	rules["ventus"](state) or
                                             rules["terra"](state),
+        ### --- castle_parkour --- ###
         "Castle - Pot Parkour Room":    lambda state: (rules["ventus"](state) or
                                                        rules["doublejump"](state) or
                                                         rules["dash"](state)),
+        "Castle - Defeat Faleon":       lambda state: (rules["doublejump"](state) or
+                                                        rules["ventus"](state) or
+                                                        rules["dash"](state))
+                                                        and
+                                                        (rules["ignis"](state) and
+                                                         rules["ventus"](state) and
+                                                         rules["terra"](state) and
+                                                         rules["prog_sword3"](state)),
+
+        ### --- castle --- ###
         "Castle - Pot Room Top of West Tower": lambda state: rules["doublejump"](state) or
                                         	             rules["ventus"](state),
         "Castle - Pot Under Parkour 1": lambda state: rules["doublejump"](state) or
@@ -515,25 +544,22 @@ def create_regions(world: MultiWorld, player: int):
         "Castle - Battle Armor Chest":  lambda state: rules["doublejump"](state) or
                                                         rules["ventus"](state),
         "Castle - Raval Ore x500 Chest": lambda state: (rules["doublejump"](state) and rules["ventus"](state)) or (rules["ventus2"](state)),
-        "Castle - Defeat Faleon":       lambda state: (rules["doublejump"](state) or
-                                                        rules["ventus"](state) or
-                                                        rules["dash"](state))
-                                                        and
-                                                        (rules["ignis"](state) and
-                                                         rules["ventus"](state) and
-                                                         rules["terra"](state) and
-                                                         rules["prog_sword3"](state)),
         "Castle - Topaz Chest": rules["doublejump"],
         "Castle - Pot Top Of East Tower":   lambda state: rules["doublejump"](state) or
                                                         rules["ventus"](state) or
                                                         rules["terra_jump"](state),
         "Castle - Raval Ore x250 Chest":    lambda state: rules["dash_doublejump"](state) and
                                                         rules["ventus"](state),
-        "Castle - Raval Ore x320 Chest":    lambda state: rules["doublejump"](state) and
-                                                        rules["terra"](state),
+
         "Castle - Place Organ Pipe": rules["pipe"],    
         "Castle - Place Holy Cross": rules["cross"],    
-        "Castle - Place Ivory Key": rules["ivory"],      
+        "Castle - Place Ivory Key": rules["ivory"], 
+        
+        ### --- castle_west --- ###
+
+        "Castle - Raval Ore x320 Chest":    lambda state: rules["doublejump"](state) and
+                                                        rules["terra"](state),
+     
         "Castle - Pot Boulder Room 1": rules["stoneshoes"],		
         "Castle - Pot Boulder Room 2": rules["stoneshoes"],			
         "Castle - Pot Lava Room":           lambda state: rules["doublejump"](state) or
@@ -585,7 +611,7 @@ def create_regions(world: MultiWorld, player: int):
     cave.connect(cave_ice, rule=rules["stoneshoes"])
 
     redmont.connect(castle, rule=lambda state: has_enough_statues(state, player, statues_required))
-    castle.connect(dungeon, rule=lambda state: rules["all_organ"](state) or open_dungeon == 0)
+    castle.connect(dungeon, rule=lambda state: rules["all_organ"](state))
     castle.connect(castle_west, rule=rules["faleon"])
     dungeon.connect(clock, rule=lambda state: (rules["clock_key"](state) and
                                                     rules["ignis"](state) and

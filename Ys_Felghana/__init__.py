@@ -115,6 +115,7 @@ class YsFelghanaWorld(World):
             "keyring_item": self.options.keyring_item.value,
             "brocia_serum_change": self.options.brocia_serum_change.value,
             "sword_anywhere": self.options.sword_anywhere.value,
+            "trap_filler": self.options.trap_filler.value,
         }
 
     def create_items(self):
@@ -134,24 +135,22 @@ class YsFelghanaWorld(World):
         bobs_location.place_locked_item(bobs_item)
 
         # Items with multiple Copies
-        item_pool += [self.create_item("Progressive Sword")] * 5
-        item_pool += [self.create_item("Progressive Armor")] * 5
-        item_pool += [self.create_item("Progressive Shield")] * 5
+        item_pool += [self.create_item("Progressive Sword")] * (5 + self.options.extra_progressive.value)
+        item_pool += [self.create_item("Progressive Armor")] * (5 + self.options.extra_progressive.value)
+        item_pool += [self.create_item("Progressive Shield")] * (5 + self.options.extra_progressive.value)
         item_pool += [self.create_item("Katol Elixir")] * 5
         item_pool += [self.create_item("Berm Leaves")] * 4 # Might also just remove
         item_pool += [self.create_item("XP x50000")] * 3
         item_pool += [self.create_item("XP x25000")] * 6
+        item_pool += [self.create_item("XP x15000")] * 10
+        item_pool += [self.create_item("XP x10000")] * 12
         item_pool += [self.create_item("Raval Ore x2000")] * 3
-        item_pool += [self.create_item("Gold x15000")] * 6
-        item_pool += [self.create_item("Gold x10000")] * 10
-
-        if self.options.extra_progressive > 0:
-            item_pool += [self.create_item("Progressive Sword")] * self.options.extra_progressive.value
-            item_pool += [self.create_item("Progressive Armor")] * self.options.extra_progressive.value
-            item_pool += [self.create_item("Progressive Shield")] * self.options.extra_progressive.value
+        item_pool += [self.create_item("Magic Wallet")] * 7
+        #item_pool += [self.create_item("Gold x15000")] * 6
+        #item_pool += [self.create_item("Gold x10000")] * 10
 
         #Bracelets
-        if (self.options.progressive_bracelets == False):
+        if self.options.progressive_bracelets == False:
             item_pool += [self.create_item("Ruby")] * 3
             item_pool += [self.create_item("Emerald")] * 3
             item_pool += [self.create_item("Topaz")] * 3
@@ -221,12 +220,23 @@ class YsFelghanaWorld(World):
             item_pool += [self.create_item("Keyring")] * 3
 
     #Trap Items (Not customizable for now)
-        item_pool += [self.create_item("Armless Trap")] * 20
+        item_pool += [self.create_item("Armless Trap")] * 10
         item_pool += [self.create_item("Slippery Trap")] * 10
 
     # Filler items - fill the rest of the pool
     # Calculate how many filler we need
         total_locations = len(self.multiworld.get_unfilled_locations(self.player))
+        filler_needed = total_locations - len(item_pool)
+        
+
+        if self.options.trap_filler > 0:
+            trap_fill = round(filler_needed * (self.options.trap_filler / 100))
+
+            for _ in range(trap_fill):
+
+                item_pool.append(self.create_item(self.get_trap_item_name()))
+
+
         filler_needed = total_locations - len(item_pool)
 
         for _ in range(filler_needed):
@@ -244,3 +254,11 @@ class YsFelghanaWorld(World):
             if classification == ItemClassification.filler
         ]
         return self.random.choice(filler_items)
+
+    def get_trap_item_name(self) -> str:
+        # Dynamically fetch all item names classified as traps from item_table
+        trap_items = [
+            name for name, classification in item_table.items() 
+            if classification == ItemClassification.trap
+        ]
+        return self.random.choice(trap_items)
